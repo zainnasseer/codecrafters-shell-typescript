@@ -18,6 +18,10 @@
     "strict": true,
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // Types
+    "types": ["node"],
 
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,

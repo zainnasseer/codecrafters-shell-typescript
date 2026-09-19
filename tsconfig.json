@@ -21,7 +21,7 @@
     "forceConsistentCasingInFileNames": true,
 
     // Types
-    "types": ["node"],
+    "types": ["bun"],
 
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,

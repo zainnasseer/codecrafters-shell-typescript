@@ -22,6 +22,9 @@ rl.on("line", (command) => {
   if (command.trim() === "exit") {
     rl.close();
     return;
+  } else if (command.startsWith("echo ")) {
+    console.log(command.slice(5));
+    rl.prompt();
   } else {
     // prints the command followed by ": command not found" to the console
     console.log(`${command}: command not found`);

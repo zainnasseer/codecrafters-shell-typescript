@@ -13,6 +13,17 @@ const rl = createInterface({
   prompt: "$ ",
 });
 
+const BUILTINS: Record<string, (arg: string) => void> = {
+  type: (arg: string) => {
+    BUILTINS[arg] || arg == "exit"
+      ? console.log(`${arg} is a shell Built in command`)
+      : console.log(`${arg} is not found.`);
+  },
+  echo: (arg: string) => {
+    console.log(arg.slice(5));
+  },
+};
+
 // TODO: Uncomment the code below to pass the first stage
 rl.prompt(); // shows the prompt for the first time.
 
@@ -24,6 +35,15 @@ rl.on("line", (command) => {
     return;
   } else if (command.startsWith("echo ")) {
     console.log(command.slice(5));
+    rl.prompt();
+  } else if (command.startsWith("type ")) {
+    const commandBody: string[] = command.split(" "); // or const commandName: string = command.split(" ")[1]
+    const commandName: string = commandBody[1];
+    if (commandName == "exit" || BUILTINS[commandName]) {
+      console.log(`${commandName} is a shell Built in command`);
+    } else {
+      console.log(`${commandName} is not found.`);
+    }
     rl.prompt();
   } else {
     // prints the command followed by ": command not found" to the console

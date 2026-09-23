@@ -40,7 +40,7 @@ rl.on("line", (command) => {
     const commandBody: string[] = command.split(" "); // or const commandName: string = command.split(" ")[1]
     const commandName: string = commandBody[1];
     if (commandName == "exit" || BUILTINS[commandName]) {
-      console.log(`${commandName} is a shell Built in command`);
+      console.log(`${commandName} is a shell Builtin`);
     } else {
       console.log(`${commandName} is not found.`);
     }

@@ -38,8 +38,8 @@ rl.on("line", (command) => {
     rl.prompt();
   } else if (command.startsWith("type ")) {
     const commandBody: string[] = command.split(" "); // or const commandName: string = command.split(" ")[1]
-    const commandName: string = commandBody[1];
-    if (commandName == "exit" || BUILTINS[commandName]) {
+    const commandName: string = commandBody[1]; // [1] is the second index, type is [0]
+    if (commandName === "exit" || BUILTINS[commandName]) {
       console.log(`${commandName} is a shell builtin`);
     } else {
       console.log(`${commandName} not found`);

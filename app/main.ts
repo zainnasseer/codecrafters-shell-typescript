@@ -39,7 +39,7 @@ rl.on("line", (command) => {
   } else if (command.startsWith("type ")) {
     const commandBody: string[] = command.split(" "); // or const commandName: string = command.split(" ")[1]
     const commandName: string = commandBody[1];
-    if (commandName == "exit" || BUILTINS[commandName]) {
+    if (BUILTINS[commandName]) {
       console.log(`${commandName} is a shell builtin`);
     } else {
       console.log(`${commandName} not found`);

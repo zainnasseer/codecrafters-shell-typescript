@@ -1,6 +1,23 @@
 import { createInterface } from "readline";
+import * as fs from "fs";
+import * as path from "path";
 
 const BUILTINS = new Set(["exit", "echo", "type"]);
+
+function findInPath(cmd: string): string | null {
+  const pathEnv = process.env.PATH ?? "";
+  const dirs = pathEnv.split(path.delimiter); // ":" on Unix, ";" on Windows
+  for (const dir of dirs) {
+    const fullPath = path.join(dir, cmd);
+    try {
+      fs.accessSync(fullPath, fs.constants.X_OK);
+      return fullPath; // found an executable
+    } catch {
+      // not found or not executable in this dir, continue
+    }
+  }
+  return null;
+}
 
 const rl = createInterface({
   input: process.stdin,
@@ -30,7 +47,12 @@ function handleCommand(line: string) {
       if (BUILTINS.has(target)) {
         console.log(`${target} is a shell builtin`);
       } else {
-        console.log(`${target}: not found`);
+        const found = findInPath(target);
+        if (found) {
+          console.log(`${target} is ${found}`);
+        } else {
+          console.log(`${target}: not found`);
+        }
       }
       break;
     }

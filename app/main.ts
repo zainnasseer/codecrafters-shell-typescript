@@ -37,7 +37,7 @@ function handleCommand(line: string) {
   switch (cmd) {
     case "exit": {
       const code = args.length > 0 ? parseInt(args[0], 10) : 0;
-      process.exit(isNaN(code) ? 0 : code);
+      process.exit(isNaN(code) ? 0 : code); //if the code is not a number exit with code 0
     }
     case "echo": {
       console.log(args.join(" "));

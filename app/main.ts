@@ -10,7 +10,8 @@ function findInPath(cmd: string): string | null {
   for (const dir of dirs) {
     const fullPath = path.join(dir, cmd);
     try {
-      fs.accessSync(fullPath, fs.constants.X_OK);
+      fs.accessSync(fullPath, fs.constants.X_OK); //fs.accessSync(path, fs.constants.X_OK) checks execute permission — non-executable files throw and are skipped
+      // Non-existent directories in PATH are silently skipped (the catch handles them)
       return fullPath; // found an executable
     } catch {
       // not found or not executable in this dir, continue
